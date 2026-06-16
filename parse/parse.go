@@ -58,7 +58,7 @@ func ParsePayLoad(event response.Event) (any, error) {
 		err := json.Unmarshal(event.Payload, &p)
 		return p, err
 	case "WatchEvent":
-		var p response.Event
+		var p response.WatchEvent
 		err := json.Unmarshal(event.Payload, &p)
 		return p, err
 	default:

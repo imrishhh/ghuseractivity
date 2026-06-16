@@ -4,7 +4,7 @@ package response
 import "encoding/json"
 
 type Event struct {
-	ID        int             `json:"id"`
+	ID        string          `json:"id"`
 	Type      string          `json:"type"`
 	Actor     Actor           `json:"actor"`
 	Repo      Repo            `json:"repo"`
