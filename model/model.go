@@ -1,5 +1,5 @@
 // Package response holds json structure of the Github event api
-package response
+package model
 
 import "encoding/json"
 
