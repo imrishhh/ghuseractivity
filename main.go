@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/imrishhh/ghuseractivity/model"
 	"github.com/imrishhh/ghuseractivity/parse"
@@ -59,9 +60,9 @@ func main() {
 	if err := json.Unmarshal(body, &events); err != nil {
 		log.Fatal("JSON decoding failed:", err)
 	}
-
-	data, _ := json.MarshalIndent(events, "", " ")
-	fmt.Printf("%+v\n", string(data))
+	//
+	// data, _ := json.MarshalIndent(events, "", " ")
+	// fmt.Printf("%+v\n", string(data))
 	for _, e := range events {
 		printEventDetail(e)
 	}
@@ -92,18 +93,41 @@ func getStatusCodeError(code int) error {
 	}
 }
 
+func timeAgo(t time.Time) string {
+	d := time.Since(t)
+	switch {
+	case d < time.Minute:
+		return fmt.Sprintf("%ds ago", int(d.Seconds()))
+	case d < time.Hour:
+		return fmt.Sprintf("%dm ago", int(d.Minutes()))
+	case d < 24*time.Hour:
+		return fmt.Sprintf("%dh ago", int(d.Hours()))
+	case d < 30*24*time.Hour:
+		return fmt.Sprintf("%dd ago", int(d.Hours()/24))
+	case d < 12*30*24*time.Hour:
+		return fmt.Sprintf("%dmo ago", int(d.Hours()/(24*30)))
+	default:
+		return fmt.Sprintf("%dy ago", int(d.Hours()/(365*24)))
+	}
+}
+
 func printEventDetail(event model.Event) {
 	payload, err := parse.ParsePayLoad(event)
 	if err != nil {
 		return
 	}
+	eventTime, err := time.Parse(time.RFC3339, event.CreatedAt)
+	if err != nil {
+		fmt.Println("Invalid event time")
+		return
+	}
+	ago := timeAgo(eventTime)
 	switch payload.(type) {
 	case model.PushEvent:
-		fmt.Printf("pushed changes to %s - %s", event.Repo.Name, event.CreatedAt)
+		fmt.Printf("pushed changes to %s - %s\n", event.Repo.Name, ago)
 	case model.WatchEvent:
-		fmt.Printf("watched %s - %s", event.Repo.Name, event.CreatedAt)
+		fmt.Printf("starred repository %s - %s\n", event.Repo.Name, ago)
 	case model.ForkEvent:
-		fmt.Printf("forked %s repository - %s", event.Repo.Name, event.CreatedAt)
+		fmt.Printf("forked a repository %s - %s\n", event.Repo.Name, ago)
 	}
-	fmt.Println()
 }
