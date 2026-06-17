@@ -95,6 +95,9 @@ func getStatusCodeError(code int) error {
 
 func timeAgo(t time.Time) string {
 	d := time.Since(t)
+	if d.Abs() > 5*time.Second {
+		return "client clock out of sync"
+	}
 	switch {
 	case d < time.Minute:
 		return fmt.Sprintf("%ds ago", int(d.Seconds()))
