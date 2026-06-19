@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 
@@ -18,13 +19,23 @@ import (
 func main() {
 	cmdArgs := os.Args
 	if len(cmdArgs) < 2 {
-		fmt.Println("Command Usage: ghuseractivity <username>")
+		fmt.Println("Command Usage: ghuseractivity <username> <page>(Default=1)")
 		fmt.Println()
-		fmt.Println("Example:", "ghuseractivity torvalds")
+		fmt.Println("Example:", "ghuseractivity torvalds 1")
 		return
 	}
 	username := cmdArgs[1]
-
+	var (
+		page int
+		err  error
+	)
+	if len(cmdArgs) > 2 {
+		page, err = strconv.Atoi(cmdArgs[2])
+		if err != nil || page < 1 {
+			fmt.Println("Invalid Page Number using: 1")
+			page = 1
+		}
+	}
 	if err := godotenv.Load(); err != nil {
 		log.Fatal("Failed to load secret env file")
 	}
@@ -35,7 +46,7 @@ func main() {
 	}
 	token = strings.TrimSpace(token)
 
-	req := prepareRequest(username, token)
+	req := prepareRequest(username, page, token)
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
@@ -60,6 +71,9 @@ func main() {
 	if err := json.Unmarshal(body, &events); err != nil {
 		log.Fatal("JSON decoding failed:", err)
 	}
+	if len(events) == 0 {
+		fmt.Printf("No activity found at page no. %d", page)
+	}
 	//
 	// data, _ := json.MarshalIndent(events, "", " ")
 	// fmt.Printf("%+v\n", string(data))
@@ -68,8 +82,8 @@ func main() {
 	}
 }
 
-func prepareRequest(username string, token string) *http.Request {
-	reqURL := fmt.Sprintf("https://api.github.com/users/%s/events", username)
+func prepareRequest(username string, page int, token string) *http.Request {
+	reqURL := fmt.Sprintf("https://api.github.com/users/%s/events?page=%d", username, page)
 
 	req, err := http.NewRequest("GET", reqURL, nil)
 	if err != nil {
