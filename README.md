@@ -21,40 +21,38 @@ Then find the executable in `./build` folder, move the executable to project fol
 **Example**:
 
 ```bash
-./ghuseractivity torvalds 1
+./ghuseractivity torvalds 5
 ```
 
 **Output**:
 
 ```
-pushed changes to torvalds/linux - 22m ago
-pushed changes to torvalds/linux - 2h ago
-pushed changes to torvalds/linux - 3h ago
-pushed changes to torvalds/linux - 23h ago
-pushed changes to torvalds/linux - 1d ago
-pushed changes to torvalds/linux - 1d ago
-pushed changes to torvalds/linux - 1d ago
-pushed changes to torvalds/linux - 1d ago
-pushed changes to torvalds/linux - 1d ago
-pushed changes to torvalds/linux - 1d ago
-pushed changes to torvalds/linux - 1d ago
-pushed changes to torvalds/linux - 1d ago
-pushed changes to torvalds/linux - 1d ago
-pushed changes to torvalds/linux - 1d ago
-pushed changes to torvalds/linux - 1d ago
-pushed changes to torvalds/linux - 2d ago
-pushed changes to torvalds/linux - 2d ago
-pushed changes to torvalds/linux - 2d ago
-pushed changes to torvalds/linux - 2d ago
-pushed changes to torvalds/linux - 2d ago
-pushed changes to torvalds/linux - 3d ago
-pushed changes to torvalds/linux - 3d ago
-pushed changes to torvalds/linux - 4d ago
-pushed changes to torvalds/GuitarPedal - 4d ago
-pushed changes to torvalds/linux - 4d ago
-pushed changes to torvalds/GuitarPedal - 4d ago
-pushed changes to torvalds/linux - 4d ago
-pushed changes to torvalds/linux - 4d ago
-pushed changes to torvalds/linux - 4d ago
-pushed changes to torvalds/GuitarPedal - 5d ago
+PUSHED changes to `torvalds/linux` - 21d ago
+PUSHED changes to `torvalds/linux` - 23d ago
+PUSHED changes to `torvalds/linux` - 23d ago
+PUSHED changes to `torvalds/linux` - 24d ago
+CREATED a issue at `torvalds/GuitarPedal` - 25d ago
+PUSHED changes to `torvalds/GuitarPedal` - 25d ago
+PUSHED changes to `torvalds/linux` - 25d ago
+PUSHED changes to `torvalds/linux` - 25d ago
+PUSHED changes to `torvalds/GuitarPedal` - 25d ago
+PUSHED changes to `torvalds/linux` - 26d ago
+PUSHED changes to `torvalds/GuitarPedal` - 26d ago
+PUSHED changes to `torvalds/linux` - 26d ago
+PUSHED changes to `torvalds/GuitarPedal` - 26d ago
+PUSHED changes to `torvalds/linux` - 27d ago
+PUSHED changes to `torvalds/linux` - 27d ago
+PUSHED changes to `torvalds/GuitarPedal` - 27d ago
+PUSHED changes to `torvalds/linux` - 27d ago
+PUSHED changes to `torvalds/linux` - 27d ago
+PUSHED changes to `torvalds/GuitarPedal` - 27d ago
+PUSHED changes to `torvalds/linux` - 27d ago
+OPENED a issue at `torvalds/GuitarPedal` - 27d ago
+OPENED a issue at `torvalds/GuitarPedal` - 27d ago
+PUSHED changes to `torvalds/linux` - 28d ago
+CLOSED a issue at `torvalds/GuitarPedal` - 28d ago
+PUSHED changes to `torvalds/linux` - 28d ago
+PUSHED changes to `torvalds/linux` - 28d ago
+PUSHED changes to `torvalds/linux` - 29d ago
+PUSHED changes to `torvalds/linux` - 29d ago
 ```
