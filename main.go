@@ -135,13 +135,49 @@ func printEventDetail(event model.Event) {
 		fmt.Println("Invalid event time")
 		return
 	}
+
 	ago := timeAgo(eventTime)
-	switch payload.(type) {
+	repo := event.Repo.Name
+	toTitle := strings.ToTitle
+
+	if repo == "" {
+		repo = "UNKNOWN REPO"
+	}
+	switch p := payload.(type) {
 	case model.PushEvent:
-		fmt.Printf("pushed changes to %s - %s\n", event.Repo.Name, ago)
+		fmt.Printf("PUSHED changes to `%s` - %s\n", repo, ago)
 	case model.WatchEvent:
-		fmt.Printf("starred repository %s - %s\n", event.Repo.Name, ago)
+		fmt.Printf("STARRED repository `%s` - %s\n", repo, ago)
 	case model.ForkEvent:
-		fmt.Printf("forked a repository %s - %s\n", event.Repo.Name, ago)
+		fmt.Printf("FORKED repository `%s` - %s\n", repo, ago)
+	case model.CommitCommentEvent:
+		fmt.Printf("COMMENTED a commit at `%s` - %s\n", repo, ago)
+	case model.DeleteEvent:
+		fmt.Printf("DELETED %s `%s` at `%s` - %s\n", p.RefType, p.Ref, repo, ago)
+	case model.DiscussionEvent:
+		fmt.Printf("%s discussion at `%s` - %s\n", toTitle(p.Action), repo, ago)
+	case model.CreateEvent:
+		fmt.Printf("CREATED %s `%s` at `%s` - %s\n", p.RefType, p.Ref, repo, ago)
+	case model.GollumEvent:
+		fmt.Println("Github Pages Changes:")
+		for _, page := range p.Pages {
+			fmt.Printf("%s a page %s at `%s` - %s\n", toTitle(*page.Action), *page.Title, repo, ago)
+		}
+	case model.IssueCommentEvent:
+		fmt.Printf("%s a issue at `%s` - %s\n", toTitle(p.Action), repo, ago)
+	case model.IssuesEvent:
+		fmt.Printf("%s a issue at `%s` - %s\n", toTitle(p.Action), repo, ago)
+	case model.MemberEvent:
+		fmt.Printf("%s a member at `%s` - %s\n", toTitle(p.Action), repo, ago)
+	case model.PublicEvent:
+		fmt.Printf("MADE %s repository public - %s\n", repo, ago)
+	case model.PullRequestEvent:
+		fmt.Printf("%s a pull request (%d) at `%s` - %s\n", toTitle(p.Action), p.Number, repo, ago)
+	case model.PullRequestReviewEvent:
+		fmt.Printf("%s a pull request at `%s` - %s\n", toTitle(p.Action), repo, ago)
+	case model.PullRequestReviewCommentEvent:
+		fmt.Printf("%s a pull request review comment at `%s` - %s\n", toTitle(p.Action), repo, ago)
+	case model.ReleaseEvent:
+		fmt.Printf("%s a release at `%s` - %s\n", toTitle(p.Action), repo, ago)
 	}
 }

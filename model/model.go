@@ -38,8 +38,7 @@ type Actor struct {
 }
 
 type CommitCommentEvent struct {
-	Action  string `json:"action"`
-	Comment string `json:"comment"`
+	Action string `json:"action"`
 }
 
 type CreateEvent struct {
@@ -73,12 +72,12 @@ type GollumEvent struct {
 }
 
 type WikiPage struct {
-	PageName string  `json:"page_name"`
-	Title    string  `json:"title"`
-	Summary  *string `json:"summary"`
-	Action   string  `json:"action"`
-	SHA      string  `json:"sha"`
-	HTMLURL  string  `json:"html_url"`
+	PageName *string `json:"page_name,omitempty"`
+	Title    *string `json:"title,omitempty"`
+	Summary  *string `json:"summary,omitempty"`
+	Action   *string `json:"action,omitempty"`
+	SHA      *string `json:"sha,omitempty"`
+	HTMLURL  *string `json:"html_url,omitempty"`
 }
 
 type IssueCommentEvent struct {
