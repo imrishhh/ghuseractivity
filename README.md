@@ -15,13 +15,13 @@ docker compose up --build
 Then find the executable in `./build` folder, move the executable to project folder then run:
 
 ```bash
-./ghuseractivity <username>
+./ghuseractivity <username> <page>(Default=1)
 ```
 
 **Example**:
 
 ```bash
-./ghuseractivity torvalds
+./ghuseractivity torvalds 1
 ```
 
 **Output**:
